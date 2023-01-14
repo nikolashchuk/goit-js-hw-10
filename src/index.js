@@ -13,6 +13,11 @@ const countryInfo = document.querySelector('.country-info');
 input.addEventListener('input', debounce(onInputSearch, DEBOUNCE_DELAY));
 
 function onInputSearch(evt) {
+  if (!evt.target.value) {
+    resetInput();
+    Notiflix.Notify.warning('Please enter country name');
+    return;
+  }
   return fetchCountries(evt.target.value.trim())
     .then(showCountry)
     .catch(showError);
